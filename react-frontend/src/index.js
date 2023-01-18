@@ -5,18 +5,23 @@ import "@fontsource/roboto/700.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AddPhotograph from "./components/AddPhotograph";
 import AddStory from "./components/AddStory";
-import Dashboard from "./components/Dashboard";
+import Layout from "./components/Layout";
+import Payments from "./components/Payments";
 import ViewPayments from "./components/ViewPayments";
 import reportWebVitals from "./reportWebVitals";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Dashboard />,
+    element: <Layout />,
     children: [
       { path: "add-story", element: <AddStory /> },
       { path: "view-payments", element: <ViewPayments /> },
+      { path: "add-photograph", element: <AddPhotograph /> },
+      { path: "payments", element: <Payments /> },
+      { path: "add-advert", element: <Payments /> },
     ],
   },
 ]);

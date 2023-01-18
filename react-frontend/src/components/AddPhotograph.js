@@ -5,17 +5,17 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Title from "./Title";
 
-export default function AddStory() {
+export default function AddPhotograph() {
   return (
     <Paper sx={{ p: 2 }}>
-      <Title>Add Story</Title>
+      <Title>Add Photograph</Title>
       <Stack spacing={2}>
         <Autocomplete
           disablePortal
           options={top100Films}
           renderInput={(params) => <TextField {...params} label="Advert" />}
         />
-        <TextField label="Story" multiline minRows={3} />
+        <TextField label="Photograph" />
         <LoadingButton loading={false} variant="contained">
           Add
         </LoadingButton>

@@ -5,28 +5,25 @@ import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function MainListItems() {
+function ListItemWithNav({ text, path }) {
   const navigate = useNavigate();
   return (
+    <ListItemButton>
+      <ListItemIcon>
+        <DashboardIcon />
+      </ListItemIcon>
+      <ListItemText primary={text} onClick={() => navigate(path)} />
+    </ListItemButton>
+  );
+}
+
+export default function MainListItems() {
+  return (
     <React.Fragment>
-      <ListItemButton>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText
-          primary="Add Story"
-          onClick={() => navigate("/add-story")}
-        />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText
-          primary="View Payments"
-          onClick={() => navigate("/view-payments")}
-        />
-      </ListItemButton>
+      <ListItemWithNav text="Add Story" path="/add-story" />
+      <ListItemWithNav text="View Payments" path="/view-payments" />
+      <ListItemWithNav text="Add Photograph" path="/add-photograph" />
+      <ListItemWithNav text="Payments" path="/payments" />
     </React.Fragment>
   );
 }
