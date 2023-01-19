@@ -24,6 +24,8 @@ export default function MainListItems() {
       <ListItemWithNav text="View Payments" path="/view-payments" />
       <ListItemWithNav text="Add Photograph" path="/add-photograph" />
       <ListItemWithNav text="Payments" path="/payments" />
+      <ListItemWithNav text="Request Advert" path="/req-advert" />
+      <ListItemWithNav text="Issue Magazine" path="/issue-magazine" />
     </React.Fragment>
   );
 }
