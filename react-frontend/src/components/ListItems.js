@@ -20,6 +20,7 @@ function ListItemWithNav({ text, path }) {
 export default function MainListItems() {
   return (
     <React.Fragment>
+      <ListItemWithNav text="Login" path="/login" />
       <ListItemWithNav text="Add Story" path="/add-story" />
       <ListItemWithNav text="View Payments" path="/view-payments" />
       <ListItemWithNav text="Add Photograph" path="/add-photograph" />

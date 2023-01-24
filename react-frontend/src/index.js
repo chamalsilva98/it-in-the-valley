@@ -10,6 +10,7 @@ import AddPhotograph from "./components/AddPhotograph";
 import AddStory from "./components/AddStory";
 import IssueMagazine from "./components/IssueMagazine";
 import Layout from "./components/Layout";
+import Login from "./components/Login";
 import Payments from "./components/Payments";
 import ViewPayments from "./components/ViewPayments";
 import reportWebVitals from "./reportWebVitals";
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
+      { path: "login", element: <Login /> },
       { path: "add-story", element: <AddStory /> },
       { path: "view-payments", element: <ViewPayments /> },
       { path: "add-photograph", element: <AddPhotograph /> },

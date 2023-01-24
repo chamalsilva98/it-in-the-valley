@@ -48,6 +48,7 @@ export default function IssueMagazine() {
           onChange={setValue}
           modules={modules}
           formats={formats}
+          placeholder="Combine document"
         />
         <LoadingButton loading={false} variant="contained">
           Add
