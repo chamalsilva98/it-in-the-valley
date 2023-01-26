@@ -4,7 +4,10 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import axios from "axios";
 import * as React from "react";
+import { AuthContext } from "../App";
+import { roles } from "./ListItems";
 import Title from "./Title";
 
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -12,23 +15,41 @@ function createData(id, date, name, shipTo, paymentMethod, amount) {
 }
 
 export default function ViewPayments() {
+  const [user] = React.useContext(AuthContext);
+  const [payments, setPayments] = React.useState([]);
+
+  const isJournalist = user.roles.includes(roles.ROLE_JOURNALIST);
+
+  const getPayments = async () => {
+    const response = await axios.get(
+      `/api/${isJournalist ? "story" : "photograph"}/user/` + user.id
+    );
+    setPayments(response.data);
+  };
+
+  React.useEffect(() => {
+    getPayments();
+  }, []);
+
   return (
     <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
       <Title>View Payments</Title>
       <Table size="medium">
         <TableHead>
           <TableRow>
-            <TableCell>Story ID</TableCell>
+            <TableCell>{isJournalist ? "Story" : "Photograph"} ID</TableCell>
             <TableCell>Advert</TableCell>
             <TableCell align="right">Payment</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.id}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell align="right">{`$${row.amount}`}</TableCell>
+          {payments.map((story) => (
+            <TableRow key={story.id}>
+              <TableCell>{story.id}</TableCell>
+              <TableCell>{story.advert.title}</TableCell>
+              <TableCell align="right">
+                {!story.payment ? "Pending" : `$${story.payment}`}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -14,6 +14,7 @@ const mdTheme = createTheme();
 
 export default function Layout() {
   const [open, setOpen] = React.useState(true);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };

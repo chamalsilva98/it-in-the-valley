@@ -11,45 +11,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.valley.springbackend.models.Advert;
-import com.valley.springbackend.repository.AdvertRepository;
+import com.valley.springbackend.models.Magazine;
+import com.valley.springbackend.repository.MagazineRepository;
 
 @RestController
-@RequestMapping("/api/advert")
-public class AdvertController {
+@RequestMapping("/api/magazine")
+public class MagazineController {
 
-    private final AdvertRepository repository;
+    private final MagazineRepository repository;
 
-    AdvertController(AdvertRepository repository) {
+    MagazineController(MagazineRepository repository) {
         this.repository = repository;
     }
 
     @GetMapping()
-    List<Advert> all() {
+    List<Magazine> all() {
         return repository.findAll();
     }
 
     @PostMapping()
-    Advert newAdvert(@RequestBody Advert advert) {
-        return repository.save(advert);
+    Magazine newMagazine(@RequestBody Magazine magazine) {
+        return repository.save(magazine);
     }
 
     @GetMapping("/{id}")
-    Advert one(@PathVariable Long id) {
+    Magazine one(@PathVariable Long id) {
         return repository.findById(id).orElseThrow();
     }
 
+    @GetMapping("/user/{id}")
+    List<Magazine> magazineByUser(@PathVariable Long id) {
+        return repository.findByAdvertUserId(id);
+    }
+
     @PutMapping("/{id}")
-    Advert replaceAdvert(@RequestBody Advert newAdvert, @PathVariable Long id) {
+    Magazine replaceMagazine(@RequestBody Magazine newMagazine, @PathVariable Long id) {
         return repository.findById(id)
-                .map(advert -> {
-                    advert.setTitle(newAdvert.getTitle());
-                    advert.setDescription(newAdvert.getDescription());
-                    return repository.save(advert);
+                .map(magazine -> {
+                    magazine.setDocument(newMagazine.getDocument());
+                    return repository.save(magazine);
                 })
                 .orElseGet(() -> {
-                    newAdvert.setId(id);
-                    return repository.save(newAdvert);
+                    newMagazine.setId(id);
+                    return repository.save(newMagazine);
                 });
     }
 
@@ -57,5 +61,4 @@ public class AdvertController {
     void deleteMagazine(@PathVariable Long id) {
         repository.deleteById(id);
     }
-
 }

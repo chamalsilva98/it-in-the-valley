@@ -39,11 +39,21 @@ public class PhotographController {
         return repository.findById(id).orElseThrow();
     }
 
+    @GetMapping("/user/{id}")
+    List<Photograph> photographByUser(@PathVariable Long id) {
+        return repository.findByUserId(id);
+    }
+
+    @GetMapping("/advert/{id}")
+    List<Photograph> photographByAdvert(@PathVariable Long id) {
+        return repository.findByAdvertId(id);
+    }
+
     @PutMapping("/{id}")
     Photograph replacePhotograph(@RequestBody Photograph newPhotograph, @PathVariable Long id) {
         return repository.findById(id)
                 .map(photograph -> {
-                    photograph.setPhotograph(newPhotograph.getPhotograph());
+                    photograph.setPayment(newPhotograph.getPayment());
                     return repository.save(photograph);
                 })
                 .orElseGet(() -> {

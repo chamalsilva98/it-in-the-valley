@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,24 +15,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Story {
+public class Magazine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     private Advert advert;
 
     @Lob
-    private String story;
+    private String document;
 
-    private Integer payment;
-
-    @ManyToOne
-    private User user;
-
-    public Story(String story) {
-        this.story = story;
+    public Magazine(String document) {
+        this.document = document;
     }
 
 }

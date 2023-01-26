@@ -4,7 +4,8 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../App";
 import Title from "./Title";
 
 export default function AddStory() {
@@ -12,6 +13,8 @@ export default function AddStory() {
   const [advert, setAdvert] = useState(null);
   const [story, setStory] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [user] = useContext(AuthContext);
 
   const getAdverts = async () => {
     const response = await (await axios.get("/api/advert")).data;
@@ -28,6 +31,7 @@ export default function AddStory() {
       await axios.post("/api/story", {
         advert: { id: advert.id },
         story,
+        user: { id: user.id },
       });
       setAdvert(null);
       setStory("");
@@ -47,7 +51,7 @@ export default function AddStory() {
           getOptionLabel={(option) => option.title}
           renderInput={(params) => <TextField {...params} label="Advert" />}
           value={advert}
-          onChange={(event, newAdvert) => {
+          onChange={(_event, newAdvert) => {
             setAdvert(newAdvert);
           }}
         />

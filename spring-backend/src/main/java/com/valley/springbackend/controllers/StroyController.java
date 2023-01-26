@@ -39,11 +39,21 @@ public class StroyController {
         return repository.findById(id).orElseThrow();
     }
 
+    @GetMapping("/user/{id}")
+    List<Story> storyByUser(@PathVariable Long id) {
+        return repository.findByUserId(id);
+    }
+
+    @GetMapping("/advert/{id}")
+    List<Story> storyByAdvert(@PathVariable Long id) {
+        return repository.findByAdvertId(id);
+    }
+
     @PutMapping("/{id}")
     Story replaceStory(@RequestBody Story newStory, @PathVariable Long id) {
         return repository.findById(id)
                 .map(story -> {
-                    story.setStory(newStory.getStory());
+                    story.setPayment(newStory.getPayment());
                     return repository.save(story);
                 })
                 .orElseGet(() -> {

@@ -3,7 +3,8 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../App";
 import Title from "./Title";
 
 export default function ReqAdvert() {
@@ -11,12 +12,15 @@ export default function ReqAdvert() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [user] = useContext(AuthContext);
+
   const addAdvert = async () => {
     setLoading(true);
     try {
       await axios.post("/api/advert", {
         title,
         description,
+        user: { id: user.id },
       });
       setTitle("");
       setDescription("");

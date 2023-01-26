@@ -6,8 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,10 +20,14 @@ public class Photograph {
     private Long id;
 
     @ManyToOne
-    @JsonBackReference
     private Advert advert;
 
     private String photograph;
+
+    private Integer payment;
+
+    @ManyToOne
+    private User user;
 
     public Photograph(String photograph) {
         this.photograph = photograph;

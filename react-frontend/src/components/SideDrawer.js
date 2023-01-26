@@ -1,11 +1,16 @@
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import Divider from "@mui/material/Divider";
 import MuiDrawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import * as React from "react";
+import { AuthContext } from "../App";
 import { drawerWidth } from "./Layout";
 import MainListItems from "./ListItems";
 
@@ -36,6 +41,11 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function SideDrawer({ open, toggleDrawer }) {
+  const [user, setUser] = React.useContext(AuthContext);
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
   return (
     <Drawer variant="permanent" open={open}>
       <Toolbar
@@ -53,7 +63,17 @@ export default function SideDrawer({ open, toggleDrawer }) {
       <Divider />
       <List component="nav">
         <MainListItems />
-        <Divider sx={{ my: 1 }} />
+        {user && (
+          <>
+            <Divider sx={{ my: 1 }} />
+            <ListItemButton onClick={logout}>
+              <ListItemIcon>
+                <DashboardIcon />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItemButton>
+          </>
+        )}
       </List>
     </Drawer>
   );

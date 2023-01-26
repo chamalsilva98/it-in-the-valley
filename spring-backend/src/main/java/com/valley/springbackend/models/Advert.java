@@ -6,9 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,8 +31,19 @@ public class Advert {
     private String description;
 
     @OneToMany(mappedBy = "advert")
-    @JsonManagedReference
+    @JsonIgnore
     private List<Story> stories;
+
+    @OneToMany(mappedBy = "advert")
+    @JsonIgnore
+    private List<Photograph> photographs;
+
+    @OneToOne(mappedBy = "advert")
+    @JsonIgnore
+    private Magazine magazine;
+
+    @ManyToOne
+    private User user;
 
     public Advert(String title, String description) {
         this.title = title;
